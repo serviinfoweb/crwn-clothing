@@ -1,23 +1,31 @@
 import React from 'react';
 import FormInput from '../../components/form-input/form-input.component';
 import CustomButton from '../../components/custom-button/custom-button.component'
-import { signInWithGoogle } from '../../firebase/firebase.utils';
+import { auth,signInWithGoogle } from '../../firebase/firebase.utils';
 import './sign-in.styles.scss';
 
 //We use class because we have to store the data user typing in
 class SignIn extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         
         this.state ={
             email:'',
             password:''
         }
     }
-    handleSubmit = event =>{
+    handleSubmit = async event  => {
         //Cancel the event
         event.preventDefault();
-        this.setState({email:'',password:''});
+        const {email,password} = this.state;
+
+        try{
+            await auth.signInWithEmailAndPassword(email,password);
+            this.setState({email:'',password:''})
+        }catch(error){
+            console.log(error);
+
+        }
     }
     //function to put value the states dynamically
     handleChange = event=>{
@@ -27,7 +35,6 @@ class SignIn extends React.Component{
 
     }
     
-
     render(){
         return(
             <div className='sign-in'>

@@ -32,11 +32,11 @@ class App extends React.Component {
           })
         });
         
-      }else{
-        this.setState({currentUser: userAuth});
       }
+        this.setState({currentUser: userAuth});
+      
 
-      console.log(this.state);
+      //console.log(this.state);
       //createUserProfileDocument(user);
       
     })
